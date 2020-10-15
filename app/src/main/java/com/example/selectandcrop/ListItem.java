@@ -92,8 +92,8 @@ public class ListItem  extends AppCompatActivity implements ListItemClickListene
     public void onListItemClick(View itemView,int position) {
         File imgFile = new File(mAlbumFiles.get(position).getPath());
 
-        CardView card =itemView.findViewById(R.id.card_view);
-        card.setCardBackgroundColor(Color.parseColor("#880000"));
+       // CardView card =itemView.findViewById(R.id.card_view);
+      //  card.setCardBackgroundColor(Color.parseColor("#880000"));
         if(imgFile.exists()){
 
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());

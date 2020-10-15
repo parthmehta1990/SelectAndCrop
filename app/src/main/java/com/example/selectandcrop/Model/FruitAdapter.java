@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.selectandcrop.Interfaces.ListItemClickListener;
@@ -27,6 +28,8 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.MyViewHolder
     private ArrayList<AlbumFile> imageModelArrayList;
 
     final private ListItemClickListener mOnClickListener;
+
+    int selectedPosition=-1;
 
     public FruitAdapter(Context ctx, ArrayList<AlbumFile> imageModelArrayList, ListItemClickListener mOnClickListener){
 
@@ -45,8 +48,12 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(FruitAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(FruitAdapter.MyViewHolder holder, final int position) {
 
+        if(selectedPosition==position)
+            holder.backgroundLayout.setBackgroundColor(Color.parseColor("#88cccc"));
+        else
+            holder.backgroundLayout.setBackgroundColor(Color.parseColor("#ffffff"));
 
         File imgFile = new File(imageModelArrayList.get(position).getPath());
 
@@ -54,11 +61,10 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.MyViewHolder
 
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
-
-
             holder.iv.setImageBitmap(myBitmap);
 
         }
+
         //holder.iv.setImageBitmap(Integer.parseInt(imageModelArrayList.get(position).getPath()));
        // holder.time.setText(imageModelArrayList.get(position).getName());
     }
@@ -70,13 +76,13 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        LinearLayout backgroundLayout;
+        CardView backgroundLayout;
         ImageView iv;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            backgroundLayout=(LinearLayout)itemView.findViewById(R.id.backgroundLayout);
+            backgroundLayout=(CardView)itemView.findViewById(R.id.card_view);
             iv = (ImageView) itemView.findViewById(R.id.iv);
             itemView.setOnClickListener(this);
         }
@@ -84,6 +90,8 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.MyViewHolder
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
+            selectedPosition=position;
+            notifyDataSetChanged();
 
             mOnClickListener.onListItemClick(itemView,position);
         }
