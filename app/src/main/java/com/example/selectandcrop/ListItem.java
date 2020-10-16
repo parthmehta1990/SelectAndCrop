@@ -2,21 +2,23 @@ package com.example.selectandcrop;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.selectandcrop.Interfaces.ListItemClickListener;
+import com.example.selectandcrop.Model.AlbumFilePOJO;
 import com.example.selectandcrop.Model.FruitAdapter;
-import com.example.selectandcrop.Model.FruitModel;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
@@ -28,9 +30,11 @@ import java.util.ArrayList;
 public class ListItem  extends AppCompatActivity implements ListItemClickListener{
 
     private RecyclerView recyclerView;
-    private ArrayList<FruitModel> imageModelArrayList;
+    private ArrayList<AlbumFilePOJO> imageModelArrayList;
     private FruitAdapter adapter;
     private ArrayList<AlbumFile> mAlbumFiles;
+
+    AlbumFilePOJO albumFilePOJO;
 
     ImageView selectedImage;
 
@@ -63,7 +67,19 @@ public class ListItem  extends AppCompatActivity implements ListItemClickListene
                     public void onAction(@NonNull ArrayList<AlbumFile> result) {
                         mAlbumFiles = result;
 
-                        adapter = new FruitAdapter(ListItem.this, mAlbumFiles, (ListItemClickListener) ListItem.this);
+                        imageModelArrayList=new ArrayList<>();
+
+                        for (int i =0;i<mAlbumFiles.size();i++)
+                        {
+                            albumFilePOJO=new AlbumFilePOJO();
+                            albumFilePOJO.setmPath(mAlbumFiles.get(i).getPath());
+                            albumFilePOJO.setmMimeType(mAlbumFiles.get(i).getMimeType());
+                            albumFilePOJO.setmSize(mAlbumFiles.get(i).getSize());
+
+                            imageModelArrayList.add(albumFilePOJO);
+                        }
+
+                        adapter = new FruitAdapter(ListItem.this, imageModelArrayList, (ListItemClickListener) ListItem.this);
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -100,6 +116,25 @@ public class ListItem  extends AppCompatActivity implements ListItemClickListene
 
             selectedImage.setImageBitmap(myBitmap);
 
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.crop_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.done:
+                // do something
+                return true;
+            case R.id.crop:
+                // do something
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
     }
 }

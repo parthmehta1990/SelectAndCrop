@@ -25,13 +25,13 @@ import java.util.ArrayList;
 public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
-    private ArrayList<AlbumFile> imageModelArrayList;
+    private ArrayList<AlbumFilePOJO> imageModelArrayList;
 
     final private ListItemClickListener mOnClickListener;
 
     int selectedPosition=-1;
 
-    public FruitAdapter(Context ctx, ArrayList<AlbumFile> imageModelArrayList, ListItemClickListener mOnClickListener){
+    public FruitAdapter(Context ctx, ArrayList<AlbumFilePOJO> imageModelArrayList, ListItemClickListener mOnClickListener){
 
         inflater = LayoutInflater.from(ctx);
         this.imageModelArrayList = imageModelArrayList;
@@ -55,7 +55,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.MyViewHolder
         else
             holder.backgroundLayout.setBackgroundColor(Color.parseColor("#ffffff"));
 
-        File imgFile = new File(imageModelArrayList.get(position).getPath());
+        File imgFile = new File(imageModelArrayList.get(position).getmPath());
 
         if(imgFile.exists()){
 
@@ -91,9 +91,10 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.MyViewHolder
         public void onClick(View v) {
             int position = getAdapterPosition();
             selectedPosition=position;
-            notifyDataSetChanged();
+
 
             mOnClickListener.onListItemClick(itemView,position);
+            notifyDataSetChanged();
         }
 
     }
