@@ -2,4 +2,15 @@
     <string name="app_name">SelectAndCrop</string>
     <string name="done">Done</string>
     <string name="crop">Crop</string>
+
+    <string name="title_crop_gallery">Crop gallery</string>
+    <string name="title_crop">Crop</string>
+
+    <string name="title_choose_image">Open</string>
+
+    <string name="msg_crop_failed">Crop failed</string>
+
+    <string name="btn_new_crop">New crop</string>
+
+    <string name="transition_view_image" translatable="false">view_image</string>
 </resources>
