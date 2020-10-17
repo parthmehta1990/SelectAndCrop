@@ -120,6 +120,7 @@ public class ListItem  extends AppCompatActivity implements ListItemClickListene
                     @Override
                     public void onAction(@NonNull String result) {
                         Toast.makeText(ListItem.this, "canceled", Toast.LENGTH_LONG).show();
+                        finish();
                     }
                 })
                 .start();
@@ -151,18 +152,23 @@ public class ListItem  extends AppCompatActivity implements ListItemClickListene
             case R.id.done:
                 // Completing crop functionality and passing the data for upload
                 finish();
+                return  true;
 
             case R.id.crop:
                 // Initiate to crop of a single selected image and initiate fro cropping
                 startActivity(CropActivity.callingIntent(ListItem.this, selectedPath));
 
+                return true;
+
             default:
                 return super.onContextItemSelected(item);
+
         }
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
+        cropResultReceiver.unregister(ListItem.this);
         //here we get the image after cropping
         getFileIMGSize(croppedUri);
     }
@@ -174,6 +180,7 @@ public class ListItem  extends AppCompatActivity implements ListItemClickListene
     }
 
     private void getFileIMGSize(Uri uri){
+
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         // options.inTargetDensity=300;

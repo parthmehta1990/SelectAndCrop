@@ -61,10 +61,12 @@ public class CropActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.done) {
+        if (item.getItemId() == R.id.sub_done) {
             cropView.crop(configurator.getSelectedSaveConfig());
             finish();
+
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

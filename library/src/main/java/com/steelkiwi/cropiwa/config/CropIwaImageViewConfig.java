@@ -2,8 +2,10 @@ package com.steelkiwi.cropiwa.config;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.FloatRange;
+
 import android.util.AttributeSet;
+
+import androidx.annotation.FloatRange;
 
 import com.steelkiwi.cropiwa.R;
 
