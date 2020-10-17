@@ -70,6 +70,7 @@ public class ListItem  extends AppCompatActivity implements ListItemClickListene
         cropResultReceiver.setListener(this);
         cropResultReceiver.register(this);
 
+        Log.d("=== in create","create");
         selectImage();
 
     }
@@ -173,9 +174,24 @@ public class ListItem  extends AppCompatActivity implements ListItemClickListene
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
-        cropResultReceiver.unregister(ListItem.this);
+       // cropResultReceiver.unregister(ListItem.this);
         //here we get the image after cropping
         getFileIMGSize(croppedUri);
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        cropResultReceiver.register(this);
+        Log.d("=== in Restart","Restart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        cropResultReceiver.unregister(ListItem.this);
+        Log.d("=== in stop","stop");
     }
 
     @Override
