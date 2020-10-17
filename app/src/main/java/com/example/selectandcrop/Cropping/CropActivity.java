@@ -41,7 +41,7 @@ public class CropActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.title_crop);
-        //setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Uri imageUri = getIntent().getParcelableExtra(EXTRA_URI);
